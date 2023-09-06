@@ -1,0 +1,22 @@
+CREATE TABLE IF NOT EXISTS "users" (
+  "id" SERIAL PRIMARY KEY,
+  "name" VARCHAR(50) NOT NULL,
+  "email" VARCHAR(50) NOT NULL UNIQUE,
+  "password" VARCHAR(120) NOT NULL,
+  "admin" BOOLEAN DEFAULT false NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS "courses" (
+  "id" SERIAL PRIMARY KEY,
+  "name" VARCHAR(150) NOT NULL,
+  "description" TEXT NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS "userCourses" (
+  "id" SERIAL PRIMARY KEY,
+  "active" BOOLEAN DEFAULT true NOT NULL,
+  "userId" INTEGER,
+  FOREIGN KEY ("userId") REFERENCES "users"("id") ON DELETE CASCADE,
+  "courseId" INTEGER,
+  FOREIGN KEY ("courseId") REFERENCES "courses"("id") ON DELETE CASCADE
+);
